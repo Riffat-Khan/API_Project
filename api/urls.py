@@ -1,17 +1,53 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('register/', views.ProfileRegister.as_view(), name='register'),
-    path('login/', views.UserLoginView.as_view(), name='login'),
+    path('register/', views.ProfileRegister.as_view({
+        'post': 'create',
+    }), name='register'),
     path('logout/', views.UserLogoutView.as_view(), name='logout'),
-    path('projects/', views.ProjectRegister.as_view(), name='projects'),
-    path('projects/<int:id>/', views.GetPutDelProjectAPI.as_view(), name='projects_id'),
-    path('tasks/', views.TaskRegister.as_view(), name='tasks'),
-    path('tasks/<int:id>/', views.GetPutDelTaskAPI.as_view(), name='tasks_id'),
-    # path('tasks/<int:task_id>/assign/', views.GetPutDelTaskAPI.as_view(), name='tasks_assign'),
-    path('documents/', views.DocumentRegister.as_view(), name='doc'),
-    path('documents/<int:id>/', views.GetPutDelDocumentAPI.as_view(), name='doc'),
-    path('comments/', views.CommentRegister.as_view(), name='comments'),
-    path('comments/<int:id>/', views.GetPutDelCommentAPI.as_view(), name='comments'),
-] 
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('projects/', views.ProjectRegister.as_view({
+        'post': 'create',
+        'get': 'list'
+    }), name='projects'),
+    path('projects/<int:pk>/', views.ProjectRegister.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'delete': 'destroy'
+    }), name='projects_id'),
+     path('tasks/', views.TaskRegister.as_view({
+        'post': 'create',
+        'get': 'list'
+    }), name='task'),
+    path('tasks/<int:pk>/', views.TaskRegister.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'delete': 'destroy'
+    }), name='task_id'),
+     path('documents/', views.DocumentRegister.as_view({
+        'post': 'create',
+        'get': 'list'
+    }), name='document'),
+    path('documents/<int:pk>/', views.DocumentRegister.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'delete': 'destroy'
+    }), name='document_id'),
+     path('comments/', views.Comments.as_view({
+        'post': 'create',
+        'get': 'list'
+    }), name='comment'),
+    path('comments/<int:pk>/', views.Comments.as_view({
+        'get': 'retrieve',
+        'put': 'update',
+        'delete': 'destroy'
+    }), name='comment_id'),
+]
+

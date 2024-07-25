@@ -55,15 +55,3 @@ class Comment(models.Model):
     def __str__(self) -> str:
         return super().__str__()
 
-
-class members(models.Model):
-    firstname = models.CharField(max_length=255)
-    lastname = models.CharField(max_length=255)
-    phone = models.IntegerField(null=True)
-    date_join = models.DateField(null=True)
-    salary = models.IntegerField(null=True)
-    bonus = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
-    
-    def __str__(self) -> str:
-        return super().__str__()
-    
