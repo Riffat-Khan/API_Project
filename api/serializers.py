@@ -1,8 +1,8 @@
-from rest_framework import serializers
 from django.utils import timezone
 from django.contrib.auth.models import User
+from rest_framework import serializers
 from .enum import StatusChoice, RoleChoice
-from .models import Profile, Project, Task, Document, Comment
+from .models import Profile, Project, Task, Document, Comment, Timeline, Notification
 
 class ProfileSerializer(serializers.ModelSerializer):
     
@@ -37,8 +37,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         
         profile_data = data.get('profile', {})
         role = profile_data.get('role')
-        if not role or role not in RoleChoice._value2member_map_:
+        
+        if role and role not in RoleChoice._value2member_map_:
             raise serializers.ValidationError("Valid Role choice is required in the profile.")
+        
         if not profile_data.get('contact_number'):
             raise serializers.ValidationError("Contact number is required in the profile.")
         
@@ -55,10 +57,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class ProjectRegisterSerializer(serializers.ModelSerializer):
-    team_members = serializers.PrimaryKeyRelatedField(
-        queryset=Profile.objects.all(),
-        many=True
-    )
 
     class Meta:
         model = Project
@@ -69,26 +67,16 @@ class ProjectRegisterSerializer(serializers.ModelSerializer):
         end_date = data.get('end_date')
         user = self.context['request'].user
         
-        if user.profile.role != 'manager':
+        if user.profile.role != RoleChoice.MANAGER.value:
             raise serializers.ValidationError("Only manager has access to it")
-    
-        title = data.get('title')
-        if title :
-            if Project.objects.filter(title=title).exists():
-                raise serializers.ValidationError("A task with this title already exists in the specified project.")
         
         if start_date and end_date and start_date < timezone.now().date() and end_date < start_date:
             raise serializers.ValidationError("Start date must be equal to or greater than the current date and End date must be greater than Start date")
         
         return data
         
+        
 class TaskRegisterSerializer(serializers.ModelSerializer):
-    project = serializers.PrimaryKeyRelatedField(
-        queryset=Project.objects.all()
-    )
-    assignee = serializers.PrimaryKeyRelatedField(
-        queryset=Profile.objects.all(),
-    )
     
     class Meta:
         model = Task
@@ -96,24 +84,21 @@ class TaskRegisterSerializer(serializers.ModelSerializer):
         
     def validate(self, data):
         user = self.context['request'].user
-        
         project = data.get('project')
+        assignee = data.get('assignee')  
         
-        title = data.get('title')
-        if title and project:
-            if Task.objects.filter(title=title, project=project).exists():
-                raise serializers.ValidationError("A task with this title already exists in the specified project.")
-            
-        assignee = data.get('assignee')   
+        if user.profile.role is not RoleChoice.MANAGER.value:
+            return("You are not the manager")
+         
         if assignee:
             if not project.team_members.filter(id=assignee.id).exists():
                 raise serializers.ValidationError("The assignee is not a member of the project.")
             
-        if project not in Project.objects.all():
-            raise serializers.ValidationError("The project doesent exist")
+        if project and not Project.objects.filter(id=project.id).exists():
+            raise serializers.ValidationError("The project doesn’t exist")
         
         status = data.get('status')
-        if status not in StatusChoice._value2member_map_:
+        if status and status not in StatusChoice._value2member_map_:
             raise serializers.ValidationError("Invalid status choice")
         
         return data
@@ -132,7 +117,7 @@ class DocumentRegisterSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
 
         project = data.get('project')
-        if not user.profile.role == 'manager':
+        if not user.profile.role == RoleChoice.MANAGER.value:
             if project and not project.team_members.filter(id=user.id).exists():
                 raise serializers.ValidationError("You are not a member of this project and cannot add documents.")
         
@@ -145,15 +130,6 @@ class DocumentRegisterSerializer(serializers.ModelSerializer):
         
         
 class CommentRegisterSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all()
-    )
-    project = serializers.PrimaryKeyRelatedField(
-        queryset=Project.objects.all()
-    )
-    task = serializers.PrimaryKeyRelatedField(
-        queryset=Task.objects.all()
-    )
     
     class Meta:
         model = Comment
@@ -161,18 +137,42 @@ class CommentRegisterSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         user = self.context['request'].user
-    
-        if 'author' in data and data['author'] != user:
-            raise serializers.ValidationError("You cannot set a different author for the comment.")
-        
         task = data.get('task')
         project = data.get('project')
-        
-        if not user.profile.role == 'manager':
-            if project and not project.members.filter(id=user.id).exists():
-                raise serializers.ValidationError("You are not a member of this project.")
+        author = data.get('author')
+    
+        if author and author != user:
+            raise serializers.ValidationError("You cannot set a different author for the comment.")
         
         if task and task.project != project:
             raise serializers.ValidationError("The task does not belong to the specified project.")
         
+        if task:
+            if task.project != project:
+                raise serializers.ValidationError("The task does not belong to the specified project.")
+            if user.profile.role != RoleChoice.MANAGER.value:
+                if task.assignee != user.profile:
+                    raise serializers.ValidationError("You are not the assignee of this task and are not allowed to create a comment.")
+            
+        if self.instance and 'author' in data and data['author'] != self.instance.author:
+            raise serializers.ValidationError("You cannot change the author of the comment.")
+    
         return data
+    
+    
+class TimelineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Timeline
+        fields = ['id', 'project', 'timestamp']
+        
+        
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ['user', 'project', 'message', 'is_read']
+    
+    def update(self, instance, validated_data):
+        instance.is_read = True
+        instance.save()
+        return instance
+    

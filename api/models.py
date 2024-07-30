@@ -55,3 +55,21 @@ class Comment(models.Model):
     def __str__(self) -> str:
         return super().__str__()
 
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, null=True, blank=True) 
+    
+    def __str__(self) -> str:
+        return super().__str__()
+    
+    
+class Timeline(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return super().__str__()

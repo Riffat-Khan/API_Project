@@ -1,15 +1,7 @@
 from rest_framework.permissions import BasePermission
+from .enum import RoleChoice
 
 class IsManager(BasePermission):
-    # """
-    # Custom permission to only allow managers to register tasks.
-    # """
-
     def has_permission(self, request, view):
         user = request.user
-        return user.profile.role == 'manager'
-    
-# class IsMember(BasePermission):
-#     def has_permission(self, request, view):
-#         user = request.user
-#         return user.
+        return user.profile.role == RoleChoice.MANAGER.value
