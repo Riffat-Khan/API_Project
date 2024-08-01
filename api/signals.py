@@ -8,7 +8,6 @@ def create_timeline_on_project_save(sender, instance, created, **kwargs):
     if created:
         Timeline.objects.create(project=instance)
         
-
 @receiver(m2m_changed, sender=Project.team_members.through)
 def notify_members(sender, instance, action, **kwargs):
     if action == 'post_add':

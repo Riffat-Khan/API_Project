@@ -50,10 +50,10 @@ GET http://127.0.0.1:8000/api/projects/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgzMDIwLCJpYXQiOjE3MjIxODI3MjAsImp0aSI6ImNkMDBkMGU0MjNiYjQyOWU4Y2ExMTkwZDdhMmFhZWQwIiwidXNlcl9pZCI6NH0.jOlu9F-WO-oxtWRf15E303BgJbhyQqXrtqdCbNmlhlo
 
 
-
 ### Get Project API
 GET http://127.0.0.1:8000/api/projects/2/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTcyOTM1LCJpYXQiOjE3MjIxNzI2MzUsImp0aSI6ImQyMzhkZjA3MjgzZjQ3Njk4OWI4YjM2MWVkMTJmZTM0IiwidXNlcl9pZCI6NH0.ZxG_xfOJPJCBvJNiT8Uej1_94sUc7QLKMq43hdsvk4M
+
 
 ### Update Project API
 PUT http://127.0.0.1:8000/api/projects/1/
@@ -111,7 +111,6 @@ POST http://127.0.0.1:8000/api/tasks/4/assign/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxODI2NjAzLCJpYXQiOjE3MjE4MjYzMDMsImp0aSI6IjcxNWM5MDA0NTM5MjQxZDlhOWIyNDlhZTdlNWEyMTQ2IiwidXNlcl9pZCI6N30.kUYdBHEkowoUDTb7WXInigaoK8dddm7kT3e-HGDJBv4
 
 
-
 ### Upload Comment API
 POST http://127.0.0.1:8000/api/comments/ 
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxOTkwNTc3LCJpYXQiOjE3MjE5OTAyNzcsImp0aSI6IjZiYjMyOWE0ZjQxNTRkMWRhYTcyNWM4ZjY3OTZkYThlIiwidXNlcl9pZCI6Mn0.F5QC3sE1XBkfmfzjzeW3AKPt4l5RIEqnMe2Cdm-FlVU
@@ -128,6 +127,7 @@ Content-Type: application/json
 ### Get ALL Comments API
 GET http://127.0.0.1:8000/api/comments/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjg1MTU2LCJpYXQiOjE3MjIyODQ4NTYsImp0aSI6Ijg2MjRlNzE3OWE4NTQyYjliZDkxYjBlMWQ5NDZlZTA4IiwidXNlcl9pZCI6Mn0.II2mCRVL_US_5GBxPj2NFtG60jMwdsUGFMUpKU3kSQ8
+
 
 ### Get Comment API
 GET http://127.0.0.1:8000/api/comments/1/
