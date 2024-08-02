@@ -1,0 +1,159 @@
+### User Registration API
+POST http://127.0.0.1:8000/api/register/
+Content-Type: application/json
+
+{ 
+    "username": "Rohan", 
+    "password": "Riffat@1100", 
+    "confirm_password" : "Riffat@1100",
+    "profile" : {
+        "role": "qa", 
+        "contact_number": "3439887746764"
+    }
+}
+
+
+### User Login API
+POST http://127.0.0.1:8000/api/api/token/
+Content-Type: application/json
+
+{ 
+    "username": "haya", 
+    "password": "Riffat@1100"
+}
+
+
+### User Logout API
+POST http://127.0.0.1:8000/api/logout/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjQzOTMwLCJpYXQiOjE3MjIyNDM2MzAsImp0aSI6ImUzMmJlNmY3ZWIyNDRiMTk5Yzc5MjUyMTk1YWEzZDE5IiwidXNlcl9pZCI6Mn0.E-6ungVtoUrpf5w90hhTf305ztt5SqXi9Y5DmeyJpD8
+Content-Type: application/json
+
+{ "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMjMzMDAzMCwiaWF0IjoxNzIyMjQzNjMwLCJqdGkiOiJiNjFiY2EwYzk5ZWE0ZThjYTAzYTUwNDNhYWRmMTMzNSIsInVzZXJfaWQiOjJ9.caQ0vhuhh36O4F5itoUXjr6cVDqDGqXMzxNko3T0oNE"}
+
+
+### Register Project API
+POST http://127.0.0.1:8000/api/projects/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjM4NDcyLCJpYXQiOjE3MjIyMzgxNzIsImp0aSI6IjdjNDMxMmNiOTQ2NzQ3YTk5MDM4NzcyNTA4NmZlMDgyIiwidXNlcl9pZCI6NH0.haNFcgGuC4sHwqZ1beI5lIMlrkQ7kpzT_gewaUVHg0c
+Content-Type: application/json
+
+{
+    "title" : "Newest Project",
+    "description" : "Make separate git rep and add me in it",
+    "start_date" : "2024-07-27",
+    "end_date" : "2024-08-07",
+    "team_members" : [1, 2, 6, 7]
+}
+
+
+### Get all Project API
+GET http://127.0.0.1:8000/api/projects/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTgzMDIwLCJpYXQiOjE3MjIxODI3MjAsImp0aSI6ImNkMDBkMGU0MjNiYjQyOWU4Y2ExMTkwZDdhMmFhZWQwIiwidXNlcl9pZCI6NH0.jOlu9F-WO-oxtWRf15E303BgJbhyQqXrtqdCbNmlhlo
+
+
+### Get Project API
+GET http://127.0.0.1:8000/api/projects/2/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTcyOTM1LCJpYXQiOjE3MjIxNzI2MzUsImp0aSI6ImQyMzhkZjA3MjgzZjQ3Njk4OWI4YjM2MWVkMTJmZTM0IiwidXNlcl9pZCI6NH0.ZxG_xfOJPJCBvJNiT8Uej1_94sUc7QLKMq43hdsvk4M
+
+
+### Update Project API
+PUT http://127.0.0.1:8000/api/projects/1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxOTg0NjEwLCJpYXQiOjE3MjE5ODQzMTAsImp0aSI6ImQ1MTkzODBiNmUyZjQ5ZjNhNmFlZTg5NTkxZWI5YjlkIiwidXNlcl9pZCI6Mn0.OaN0MRBTNumD34rk9p4gpQu6Fmj11g7SQXbF4__23rY
+Content-Type: application/json
+
+{
+    "title" : "Updated Title"
+}
+
+
+### Create Task API
+POST http://127.0.0.1:8000/api/tasks/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxOTkwNTEyLCJpYXQiOjE3MjE5OTAyMTIsImp0aSI6IjNjMDE3N2VlOWQzZjRmOWM4OGM1OTNlNTMxNjA1ZTkwIiwidXNlcl9pZCI6NH0.ZZJEds8pcbZvacmBtmprLD9PyFMeSWiHpqlyRv-UQ8Y
+Content-Type: application/json
+
+{
+  "title": "task for haya",
+  "description": "deleted",
+  "status": "review",
+  "project": 1,
+  "assignee": 1
+}
+
+
+### Task DEtail API
+GET http://127.0.0.1:8000/api/tasks/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxOTg4MTU2LCJpYXQiOjE3MjE5ODc4NTYsImp0aSI6IjM1MmFkYzlmMzJkZTRhNzliMWMyYjhiZDZhOTNmZTQ0IiwidXNlcl9pZCI6Mn0.rDDiJ9deU1KXNsljgUyzQB3jyjFLo-XLKCieh0RYML4
+
+
+
+### Task Detail API
+GET http://127.0.0.1:8000/api/tasks/1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxODI5ODY2LCJpYXQiOjE3MjE4Mjk1NjYsImp0aSI6IjAxZWY0MWMyMmNmYzRmNDM5MWFiMTM1MDYyMWNkYmJkIiwidXNlcl9pZCI6N30.wg0a7sv4cWMaNh0ht_QR1vqvVDiw7pBASQl8soOQsjY
+
+
+### Update
+PUT http://127.0.0.1:8000/api/tasks/3/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxODMwMzkyLCJpYXQiOjE3MjE4MzAwOTIsImp0aSI6IjRiOGU3ZDc5MTlmMzQ4ZmVhMTY0ZDU2OGZjOWVjMTc3IiwidXNlcl9pZCI6N30.U1oQT1segFSn25W9ETnmlG2vClBHC4AuUElf68FJYvA
+Content-Type: application/json
+
+{
+  "status": "working",
+  "assignee": "5"
+}
+
+
+### DElete
+DELETE http://127.0.0.1:8000/api/tasks/4/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxODIwNjk5LCJpYXQiOjE3MjE4MjAzOTksImp0aSI6IjU1NDljZDllMTgxYzQ5NjZhM2VhODE0M2JlMjMzZTViIiwidXNlcl9pZCI6N30.1dq97Airj2CkpJmBuCHjjjL_8UhVWxBrQA_Q-l1j8-U
+
+
+### Assign task
+POST http://127.0.0.1:8000/api/tasks/4/assign/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxODI2NjAzLCJpYXQiOjE3MjE4MjYzMDMsImp0aSI6IjcxNWM5MDA0NTM5MjQxZDlhOWIyNDlhZTdlNWEyMTQ2IiwidXNlcl9pZCI6N30.kUYdBHEkowoUDTb7WXInigaoK8dddm7kT3e-HGDJBv4
+
+
+### Upload Comment API
+POST http://127.0.0.1:8000/api/comments/ 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxOTkwNTc3LCJpYXQiOjE3MjE5OTAyNzcsImp0aSI6IjZiYjMyOWE0ZjQxNTRkMWRhYTcyNWM4ZjY3OTZkYThlIiwidXNlcl9pZCI6Mn0.F5QC3sE1XBkfmfzjzeW3AKPt4l5RIEqnMe2Cdm-FlVU
+Content-Type: application/json
+
+{
+    "text" : "Review the comments!",
+    "author" : 1,
+    "project" : 1,
+    "task" : 1
+}
+
+
+### Get ALL Comments API
+GET http://127.0.0.1:8000/api/comments/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjg1MTU2LCJpYXQiOjE3MjIyODQ4NTYsImp0aSI6Ijg2MjRlNzE3OWE4NTQyYjliZDkxYjBlMWQ5NDZlZTA4IiwidXNlcl9pZCI6Mn0.II2mCRVL_US_5GBxPj2NFtG60jMwdsUGFMUpKU3kSQ8
+
+
+### Get Comment API
+GET http://127.0.0.1:8000/api/comments/1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjg1MTU2LCJpYXQiOjE3MjIyODQ4NTYsImp0aSI6Ijg2MjRlNzE3OWE4NTQyYjliZDkxYjBlMWQ5NDZlZTA4IiwidXNlcl9pZCI6Mn0.II2mCRVL_US_5GBxPj2NFtG60jMwdsUGFMUpKU3kSQ8
+
+
+### Update Comment API
+PUT http://127.0.0.1:8000/api/comments/1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxOTA0Mjk4LCJpYXQiOjE3MjE5MDM5OTgsImp0aSI6IjM4OGZhOTEwYmJlYzQ2MjRhMTZmZGJiZDY0MGYyN2FmIiwidXNlcl9pZCI6N30.6w6r_mtd-xunerKib-zfDQorR6H2M8T9hKz9Xhz2-N8
+Content-Type: application/json
+
+{
+    "text" : "Invalid text"
+}
+
+
+### Get timeline
+GET http://127.0.0.1:8000/api/timeline/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjU2MDkzLCJpYXQiOjE3MjIyNTU3OTMsImp0aSI6IjQwNGUzNGYzZDBhZDQ5NWI4NTA0NzI4NzhiNDgzYjBhIiwidXNlcl9pZCI6NH0.GFWQix3axggNajft67R-WMcSb7Wo2ctbM42QxYB1xmc
+
+
+### Get notification
+GET http://127.0.0.1:8000/api/notifications/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjM4NzE5LCJpYXQiOjE3MjIyMzg0MTksImp0aSI6IjE0MGY3M2EwNzg3NjRkODg5OGU5YzY1MWU3ZTg0OWI2IiwidXNlcl9pZCI6Mn0.Hdugg3rCIxJd-j3LYuzCVQRqS-S2FFHRDpNv-xK3t04
+
+
+### Put mark as read True
+PUT http://127.0.0.1:8000/api/notifications/2/mark_read/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMjM5NTg3LCJpYXQiOjE3MjIyMzkyODcsImp0aSI6ImQ5M2Q5OTA4NThjOTQ5OGNiYzgyZmNiOGQzNjQzYzI2IiwidXNlcl9pZCI6Mn0.-6T8vUKTbkxucEwJdYqbZEBTCbQAd0_yL-T4WCaz9p4
