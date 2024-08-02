@@ -53,6 +53,7 @@ pillow==10.3.0
 platformdirs==4.2.2
 pre-commit==3.8.0
 prompt_toolkit==3.0.47
+psycopg2-binary==2.9.5
 Pygments==2.18.0
 PyJWT==2.8.0
 pymemcache==4.0.0
